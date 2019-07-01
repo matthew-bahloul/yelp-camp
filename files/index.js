@@ -5,6 +5,7 @@ const bodyParser    = require("body-parser");           //for parsing requests
 const mongoose      = require("mongoose");              //for database
 const passport      = require("passport");              //for user authentication
 const LocalStragety = require("passport-local");        //for user authentication
+const flash         = require("connect-flash");
 
 const commentRoutes     = require("./routes/comments"),
       campgroundRoutes  = require("./routes/campgrounds"),
@@ -32,14 +33,17 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
-// pass user to all routes
+app.use(flash());
+// pass user and flash to all routes
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
+
 passport.use(new LocalStragety(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

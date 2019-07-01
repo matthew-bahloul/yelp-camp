@@ -1,11 +1,15 @@
 <% include partials/header %>
 
-<h1>Login</h1>
 
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="login">
-</form>
+<div class="container jumbotron">
+    <h1>Login</h1>
+
+    <form  action="/login" method="post">
+        <input type="text" class="well" name="username" placeholder="username">
+        <input type="password" class="well" name="password" placeholder="password">
+        <input type="submit" class="btn btn-md btn-primary" value="login">
+    </form>
+</div>
+
 
 <% include partials/footer %>
